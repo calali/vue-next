@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist",
-    "sourceMap": false,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "allowJs": false,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "removeComments": false,
-    "jsx": "preserve",
-    "lib": ["esnext", "dom"],
-    "types": ["jest", "puppeteer", "node"],
-    "rootDir": ".",
-    "paths": {
+    "baseUrl": ".",// 用于解析非相对模块名称的基目录
+    "outDir": "dist",// 指定输出目录
+    "sourceMap": false,// 生成相应的 '.map' 文件
+    "target": "esnext",// 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'l
+    "module": "esnext",// 指定使用模块: 'commonjs', 'amd', 'system', 'umd' or 'es2015'，这里我猜是es6里面提供的import和export
+    "moduleResolution": "node",// 选择模块解析策略： 'node' (Node.js) or 'classic' (TypeScript pre-1.6)
+    "allowJs": false,// 不允许编译 javascript 文件
+    "noUnusedLocals": true,// 有未使用的变量时，抛出错误
+    "strictNullChecks": true,// 启用严格的 null 检查
+    "noImplicitAny": true, // 在表达式和声明上有隐含的 any类型时报错
+    "noImplicitThis": true,// 当 this 表达式值为 any 类型的时候，生成一个错误
+    "experimentalDecorators": true,// 启用装饰器
+    "resolveJsonModule": true,// 解析json模块文件
+    "esModuleInterop": true,//允许默认导入？https://www.tslang.cn/docs/release-notes/typescript-2.7.html https://stackoverflow.com/questions/56238356/understanding-esmoduleinterop-in-tsconfig-file
+    "removeComments": false,// 不删除编译后的所有的注释
+    "jsx": "preserve",// 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+    "lib": ["esnext", "dom"],// 指定要包含在编译中的库文件
+    "types": ["jest", "puppeteer", "node"],// 需要包含的类型声明文件名列表
+    "rootDir": ".",// 根文件夹列表，其组合内容表示项目运行时的结构内容
+    "paths": {// 模块名到基于 baseUrl 的路径映射的列表
       "@vue/*": ["packages/*/src"]
     }
   },
-  "include": [
+  "include": [ // 对那些文件进行编译成js
     "packages/global.d.ts",
     "packages/runtime-dom/jsx.d.ts",
     "packages/*/src",

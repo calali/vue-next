@@ -1,20 +1,21 @@
 import fs from 'fs'
 import path from 'path'
-import ts from 'rollup-plugin-typescript2'
-import replace from '@rollup/plugin-replace'
-import json from '@rollup/plugin-json'
+import ts from 'rollup-plugin-typescript2' //打印出ts的语法错误信息
+import replace from '@rollup/plugin-replace' //打包时替换文件内的字符串
+import json from '@rollup/plugin-json' //令 Rollup 从 JSON 文件中读取数据。
 
 if (!process.env.TARGET) {
   throw new Error('TARGET package must be specified via --environment flag.')
 }
 
-const masterVersion = require('./package.json').version
-const packagesDir = path.resolve(__dirname, 'packages')
-const packageDir = path.resolve(packagesDir, process.env.TARGET)
-const name = path.basename(packageDir)
-const resolve = p => path.resolve(packageDir, p)
-const pkg = require(resolve(`package.json`))
-const packageOptions = pkg.buildOptions || {}
+const masterVersion = require('./package.json').version //package.json里的版本号
+const packagesDir = path.resolve(__dirname, 'packages') //组合指向packages目录地址
+const packageDir = path.resolve(packagesDir, process.env.TARGET) //指向packages目录下的process.env.TARGET目录
+const name = path.basename(packageDir) //返回path的最后一部分，path.basename('/foo/bar/baz/asdf/quux.html');// 返回: 'quux.html'
+
+const resolve = p => path.resolve(packageDir, p) //返回根据参数构造出的绝对路径地址
+const pkg = require(resolve(`package.json`)) //引入packages目录下的process.env.TARGET包的package.json
+const packageOptions = pkg.buildOptions || {} //获取该模块的打包选项
 
 const knownExternals = fs.readdirSync(packagesDir).filter(p => {
   return p !== '@vue/shared'
@@ -47,7 +48,7 @@ const outputConfigs = {
   }
 }
 
-const defaultFormats = ['esm-bundler', 'cjs']
+const defaultFormats = ['esm-bundler', 'cjs'] //cjs指common js模块规范
 const inlineFormats = process.env.FORMATS && process.env.FORMATS.split(',')
 const packageFormats = inlineFormats || packageOptions.formats || defaultFormats
 const packageConfigs = process.env.PROD_ONLY
